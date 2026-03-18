@@ -1,6 +1,11 @@
+import { WalletProvider } from './src/context/WalletContext';
 import HomeScreen from './src/screens/HomeScreen';
 
 export default function App() {
-  return <HomeScreen />;
+  return (
+    <WalletProvider>
+      <HomeScreen />
+    </WalletProvider>
+  );
 }
 
