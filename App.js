@@ -5,7 +5,7 @@ import AddTransactionScreen from './src/screens/AddTransactionScreen';
 export default function App() {
   return (
     <WalletProvider>
-      <AddTransactionScreen />
+      <HomeScreen />
     </WalletProvider>
   );
 }
