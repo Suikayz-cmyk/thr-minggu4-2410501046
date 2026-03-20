@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { View, Text, FlatList, Button } from 'react-native';
 import { WalletContext, ACTIONS } from '../context/WalletContext';
 import TransactionItem from '../components/TransactionItem';
+import Header from '../components/Header';
 
 export default function HomeScreen() {
   const { state, dispatch } = useContext(WalletContext);
@@ -16,7 +17,7 @@ export default function HomeScreen() {
   return (
     <View>
       <Text>Transaction List</Text>
-
+      <Header />
       <FlatList
         data={state.transactions}
         keyExtractor={(item) => item.id}
