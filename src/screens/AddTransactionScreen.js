@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import { WalletContext, ACTIONS } from '../context/WalletContext';
 
-export default function AddTransactionScreen() {
+export default function AddTransactionScreen({ navigation }) {
 
   //Local State
   const [type, setType] = useState('income'); // 'income' atau 'expense'
@@ -32,6 +32,8 @@ export default function AddTransactionScreen() {
     // Reset form
     setAmount('');
     setNote('');
+
+    navigation.goBack();
   };
 
   return (
@@ -58,6 +60,7 @@ export default function AddTransactionScreen() {
       />
 
       <Button title="Add" onPress={handleAdd} />
+  
     </View>
   );
 }

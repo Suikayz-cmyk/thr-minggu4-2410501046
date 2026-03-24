@@ -4,7 +4,7 @@ import { WalletContext, ACTIONS } from '../context/WalletContext';
 import TransactionItem from '../components/TransactionItem';
 import Header from '../components/Header';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   const { state, dispatch } = useContext(WalletContext);
 
   const [filter, setFilter] = useState('all'); 
@@ -25,11 +25,13 @@ export default function HomeScreen() {
     <View>
       <Text>Transaction List</Text>
       <Header />
+      
       <View style={{ flexDirection: 'row', gap: 10 }}>
         <Button title="All" onPress={() => setFilter('all')} />
         <Button title="Income" onPress={() => setFilter('income')} />
         <Button title="Expense" onPress={() => setFilter('expense')} />
       </View>
+
       <FlatList
         data={filteredTransactions}
         keyExtractor={(item) => item.id}
@@ -38,6 +40,8 @@ export default function HomeScreen() {
         )}
         ListEmptyComponent={<Text>No transactions yet</Text>}
       />
+
+      <Button title="Add Transaction" onPress={() => navigation.navigate('Add')} />
     </View>
   );
 }
