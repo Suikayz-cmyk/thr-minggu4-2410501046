@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { View, Text, FlatList, Button } from 'react-native';
 import { WalletContext, ACTIONS } from '../context/WalletContext';
+
 import TransactionItem from '../components/TransactionItem';
 import Header from '../components/Header';
 
@@ -22,10 +23,12 @@ export default function HomeScreen({ navigation }) {
   });
 
   return (
-    <View>
-      <Text>Transaction List</Text>
+    <View style={{ flex: 1, padding: 10 }}>
+      <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}>Transaction List</Text>
       <Header />
-      
+
+      <Button title="Add Transaction" onPress={() => navigation.navigate('Add')} />
+        
       <View style={{ flexDirection: 'row', gap: 10 }}>
         <Button title="All" onPress={() => setFilter('all')} />
         <Button title="Income" onPress={() => setFilter('income')} />
@@ -41,7 +44,7 @@ export default function HomeScreen({ navigation }) {
         ListEmptyComponent={<Text>No transactions yet</Text>}
       />
 
-      <Button title="Add Transaction" onPress={() => navigation.navigate('Add')} />
+      
     </View>
   );
 }

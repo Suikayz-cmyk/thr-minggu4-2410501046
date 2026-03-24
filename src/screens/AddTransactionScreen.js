@@ -37,8 +37,8 @@ export default function AddTransactionScreen({ navigation }) {
   };
 
   return (
-    <View>
-      <Text>Add Transaction</Text>
+    <View style={{ flex: 1, padding: 10 }}>
+      <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}>Add Transaction</Text>
 
       {/* Type */}
       <Button title="Income" onPress={() => setType('income')} />
@@ -46,6 +46,8 @@ export default function AddTransactionScreen({ navigation }) {
 
       {/* AMOUNT */}
       <TextInput
+        style={{ borderWidth: 1, padding: 10, marginVertical: 8, borderRadius: 6 }}
+
         placeholder="Amount"
         value={amount}
         onChangeText={setAmount}
@@ -54,6 +56,8 @@ export default function AddTransactionScreen({ navigation }) {
 
       {/* NOTE */}
       <TextInput
+        style={{ borderWidth: 1, padding: 10, marginVertical: 8, borderRadius: 6 }}
+
         placeholder="Note (e.g. Ayah / Belanja)"
         value={note}
         onChangeText={setNote}
