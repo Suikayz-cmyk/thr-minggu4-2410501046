@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
 import { WalletContext, ACTIONS } from '../context/WalletContext';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function AddTransactionScreen({ navigation }) {
 
@@ -9,8 +10,19 @@ export default function AddTransactionScreen({ navigation }) {
   const [amount, setAmount] = useState('');
   const [note, setNote] = useState('');
 
+  const [date, setDate] = useState(new Date());
+  const [showPicker, setShowPicker] = useState(false);
+
   //Global State
   const { dispatch } = useContext(WalletContext);
+
+  const handleDateChange = (event, selectedDate) => {
+    setShowPicker(false);
+
+    if (event.type === 'set'){
+      setDate(selectedDate);
+    }
+  };
 
   const handleAdd = () => {
     if (!amount) return;
@@ -20,7 +32,7 @@ export default function AddTransactionScreen({ navigation }) {
       type,
       amount: Number(amount),
       note,
-      date: new Date().toISOString()
+      date: date.toISOString()
     };
 
     if (type === 'income') {
@@ -75,6 +87,26 @@ export default function AddTransactionScreen({ navigation }) {
         </Pressable>
       </View>
       
+      <Pressable onPress={() => setShowPicker(true)}
+        style={{
+            padding: 12,            
+            borderRadius: 8,
+            backgroundColor: '#ddd',
+            borderWidth: 1,
+            borderColor: '#ccc',}}>
+        <Text>
+          Date: {date.toLocaleDateString('id-ID')}
+        </Text>
+      </Pressable>
+
+      {showPicker && (
+        <DateTimePicker
+          value={date}
+          mode="date"
+          display="default"
+          onChange={handleDateChange}
+        />
+      )}
 
       {/* AMOUNT */}
       <TextInput

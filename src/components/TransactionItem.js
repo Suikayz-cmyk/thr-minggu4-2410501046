@@ -9,8 +9,16 @@ export default function TransactionItem({ item, onDelete }) {
       borderRadius: 15,
       backgroundColor: item.type === 'income' ? '#d4edda' : '#f8d7da',
       }}>
-
+      
+      <Text style={{ fontSize: 14, color: '#555', textAlign: 'right' }}>
+       {new Date(item.date).toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      })}
+      </Text>
       <Text style={{ fontWeight: 'bold',fontSize: 18 }}>{item.type.toUpperCase()}</Text>
+      
       <Text style={{ fontSize: 16 }}>Rp {item.amount}</Text>
       <Text style={{ fontSize: 14 }}>Note: {item.note}</Text>
 
