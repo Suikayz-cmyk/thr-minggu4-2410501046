@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Pressable } from 'react-native';
 import { WalletContext, ACTIONS } from '../context/WalletContext';
 
 export default function AddTransactionScreen({ navigation }) {
@@ -41,8 +41,40 @@ export default function AddTransactionScreen({ navigation }) {
       <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}>Add Transaction</Text>
 
       {/* Type */}
-      <Button title="Income" onPress={() => setType('income')} />
-      <Button title="Expense" onPress={() => setType('expense')} />
+      <View style={{ flexDirection: 'row', gap: 10, marginVertical: 10 }}>
+        {/* INCOME */}
+        <Pressable
+          onPress={() => setType('income')}
+          style={{
+            flex: 1,
+            padding: 12,
+            borderRadius: 8,
+            alignItems: 'center',
+            backgroundColor: type === 'income' ? '#4CAF50' : '#d4edda'
+          }}
+        >
+          <Text style={{ color: type === 'income' ? 'white' : 'black' }}>
+            Income
+          </Text>
+        </Pressable>
+
+        {/* EXPENSE */}
+        <Pressable
+          onPress={() => setType('expense')}
+          style={{
+            flex: 1,
+            padding: 12,
+            borderRadius: 8,
+            alignItems: 'center',
+            backgroundColor: type === 'expense' ? '#F44336' : '#f8d7da'
+          }}
+        >
+          <Text style={{ color: type === 'expense' ? 'white' : 'black' }}>
+            Expense
+          </Text>
+        </Pressable>
+      </View>
+      
 
       {/* AMOUNT */}
       <TextInput
@@ -63,7 +95,20 @@ export default function AddTransactionScreen({ navigation }) {
         onChangeText={setNote}
       />
 
-      <Button title="Add" onPress={handleAdd} />
+      <Pressable
+        onPress={handleAdd}
+        style={({ pressed }) => ({
+          backgroundColor: pressed ? '#2563EB' : '#3B82F6',
+          padding: 12,
+          borderRadius: 8,
+          alignItems: 'center',
+          marginTop: 10
+        })}
+      >
+        <Text style={{ color: 'white', fontWeight: 'bold' }}>
+          Add
+        </Text>
+      </Pressable>
   
     </View>
   );
