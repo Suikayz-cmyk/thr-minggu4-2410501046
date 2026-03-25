@@ -1,20 +1,31 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { WalletProvider } from './src/context/WalletContext';
 
 import HomeScreen from './src/screens/HomeScreen';
 import AddTransactionScreen from './src/screens/AddTransactionScreen';
 
-const Stack = createNativeStackNavigator();
+import { View, Text } from 'react-native';
+
+function ChartScreen() {
+  return (
+    <View>
+      <Text>Chart Screen</Text>
+    </View>
+  );
+}
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <WalletProvider>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Add" component={AddTransactionScreen} />
-        </Stack.Navigator>
+        <Tab.Navigator>
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Chart" component={ChartScreen} />
+          <Tab.Screen name="Add" component={AddTransactionScreen} />
+        </Tab.Navigator>
       </NavigationContainer>
     </WalletProvider>
   );
