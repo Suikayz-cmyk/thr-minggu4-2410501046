@@ -4,16 +4,7 @@ import { WalletProvider } from './src/context/WalletContext';
 
 import HomeScreen from './src/screens/HomeScreen';
 import AddTransactionScreen from './src/screens/AddTransactionScreen';
-
-import { View, Text } from 'react-native';
-
-function ChartScreen() {
-  return (
-    <View>
-      <Text>Chart Screen</Text>
-    </View>
-  );
-}
+import ChartScreen from './src/screens/ChartScreen';
 
 const Tab = createBottomTabNavigator();
 
