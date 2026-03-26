@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { View, Text, FlatList, Pressable } from 'react-native';
 import { WalletContext, ACTIONS } from '../context/WalletContext';
+import { ThemeContext } from '../context/ThemeContext';
 
 import TransactionItem from '../components/TransactionItem';
 import Header from '../components/Header';
@@ -9,6 +10,10 @@ export default function HomeScreen({ navigation }) {
   const { state, dispatch } = useContext(WalletContext);
 
   const [type, setType] = useState('income'); 
+
+  const { toggleTheme, isDark } = useContext(ThemeContext);
+
+  const { theme } = useContext(ThemeContext);
 
   const [filter, setFilter] = useState('all'); 
 
@@ -25,22 +30,53 @@ export default function HomeScreen({ navigation }) {
   });
 
   return (
-    <View style={{ flex: 1, padding: 10 }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}>Transaction List</Text>
+    <View
+      style={{
+        flex: 1,
+        padding: 10,
+        backgroundColor: theme.background
+      }}
+    >
+      <Text style={{
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: theme.text,
+        marginBottom: 10
+      }}
+      >Transaction List</Text>
+          
+      <Pressable
+        onPress={toggleTheme}
+        style={{
+          padding: 10,
+          backgroundColor: theme.card,
+          borderRadius: 8,
+          borderWidth: 1,
+          borderColor: theme.border,
+          marginBottom: 10
+        }}
+      >
+        <Text style={{ color: theme.text, textAlign: 'center' }}>
+          {isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+        </Text>
+      </Pressable>
+
       <Header />
 
      {/* ADD TRANSACTION */}
       <Pressable
         onPress={() => navigation.navigate('Add')}
         style={({ pressed }) => ({
-          backgroundColor: pressed ? '#2563EB' : '#3B82F6',
+          backgroundColor: pressed ? theme.primary : theme.primary,
+          opacity: pressed ? 0.8 : 1,
           padding: 12,
           borderRadius: 8,
           alignItems: 'center',
-          marginTop: 10
+          marginBottom: 10
         })}
       >
-        <Text style={{ color: 'white', fontWeight: 'bold' }}>
+        <Text style={{ color: '#fff', fontWeight: 'bold' }}>
           Add Transaction
         </Text>
       </Pressable>
@@ -55,7 +91,7 @@ export default function HomeScreen({ navigation }) {
             padding: 10,
             borderRadius: 8,
             alignItems: 'center',
-            backgroundColor: filter === 'all' ? '#333' : '#ddd'
+            backgroundColor: filter === 'all' ? '#747474' : '#ddd'
           }}
         >
           <Text style={{ color: filter === 'all' ? 'white' : 'black' }}>
@@ -103,7 +139,7 @@ export default function HomeScreen({ navigation }) {
         renderItem={({ item }) => (
           <TransactionItem item={item} onDelete={handleDelete} />
         )}
-        ListEmptyComponent={<Text>No transactions yet</Text>}
+        ListEmptyComponent={<Text style={{ color: theme.text }}>No transactions yet</Text>}
       />
 
       

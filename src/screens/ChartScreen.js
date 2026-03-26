@@ -1,10 +1,13 @@
 import { View, Text, Dimensions } from 'react-native';
 import { PieChart } from 'react-native-chart-kit';
+import { useState, useContext } from 'react';
 import useWallet from '../hooks/useWallet';
+import { ThemeContext } from '../context/ThemeContext';
 
 export default function ChartScreen() {
   const { totalIncome, totalExpense } = useWallet();
 
+  const { theme } = useContext(ThemeContext); 
   const screenWidth = Dimensions.get('window').width;
 
   const data = [
@@ -25,8 +28,8 @@ export default function ChartScreen() {
   ];
 
   return (
-    <View style={{ flex: 1, padding: 16 }}>
-      <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>
+    <View style={{ flex: 1, padding: 16, backgroundColor: theme.background }}>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10,color: theme.text }}>
         Financial Overview
       </Text>
 
@@ -38,7 +41,7 @@ export default function ChartScreen() {
           color: () => '#000'
         }}
         accessor="amount"
-        backgroundColor="transparent"
+        backgroundColor= 'white'
         paddingLeft="15"
 
         

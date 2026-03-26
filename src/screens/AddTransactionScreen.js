@@ -1,6 +1,8 @@
 import { useState, useContext } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
 import { WalletContext, ACTIONS } from '../context/WalletContext';
+import { ThemeContext } from '../context/ThemeContext';
+
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function AddTransactionScreen({ navigation }) {
@@ -15,6 +17,8 @@ export default function AddTransactionScreen({ navigation }) {
 
   //Global State
   const { dispatch } = useContext(WalletContext);
+
+  const { theme } = useContext(ThemeContext);
 
   const handleDateChange = (event, selectedDate) => {
     setShowPicker(false);
@@ -49,8 +53,8 @@ export default function AddTransactionScreen({ navigation }) {
   };
 
   return (
-    <View style={{ flex: 1, padding: 10 }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}>Add Transaction</Text>
+    <View style={{ flex: 1, padding: 10, backgroundColor: theme.background}}>
+      <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', color: theme.text }}>Add Transaction</Text>
 
       {/* Type */}
       <View style={{ flexDirection: 'row', gap: 10, marginVertical: 10 }}>
@@ -121,7 +125,7 @@ export default function AddTransactionScreen({ navigation }) {
       {/* NOTE */}
       <TextInput
         style={{ borderWidth: 1, padding: 10, marginVertical: 8, borderRadius: 6 }}
-
+        
         placeholder="Note (e.g. Ayah / Belanja)"
         value={note}
         onChangeText={setNote}
@@ -137,7 +141,7 @@ export default function AddTransactionScreen({ navigation }) {
           marginTop: 10
         })}
       >
-        <Text style={{ color: 'white', fontWeight: 'bold' }}>
+        <Text style={{ color: theme.text, fontWeight: 'bold' }}>
           Add
         </Text>
       </Pressable>

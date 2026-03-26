@@ -1,26 +1,34 @@
 import { View, Text, Pressable } from 'react-native';
+import { useState, useContext } from 'react';
+
+import { ThemeContext } from '../context/ThemeContext';
 
 export default function TransactionItem({ item, onDelete }) {
+
+  const { theme } = useContext(ThemeContext);
+
   return (
     <View style={{ 
-      marginVertical: 8,
-      padding: 15, 
+      backgroundColor: theme.card,
+      padding: 12,
+      borderRadius: 10,
+      marginVertical: 6,
       borderWidth: 1,
-      borderRadius: 15,
-      backgroundColor: item.type === 'income' ? '#d4edda' : '#f8d7da',
-      }}>
+      borderColor: theme.border
+    }}>
       
-      <Text style={{ fontSize: 14, color: '#555', textAlign: 'right' }}>
+      <Text style={{ fontSize: 14, color: theme.text, textAlign: 'right' }}>
        {new Date(item.date).toLocaleDateString('id-ID', {
         day: 'numeric',
         month: 'short',
         year: 'numeric'
       })}
       </Text>
-      <Text style={{ fontWeight: 'bold',fontSize: 18 }}>{item.type.toUpperCase()}</Text>
+
+      <Text style={{ fontWeight: 'bold',fontSize: 18,color: theme.text }}>{item.type.toUpperCase()}</Text>
       
-      <Text style={{ fontSize: 16 }}>Rp {item.amount}</Text>
-      <Text style={{ fontSize: 14 }}>Note: {item.note}</Text>
+      <Text style={{ fontSize: 16, color: theme.text }}>Rp {item.amount}</Text>
+      <Text style={{ fontSize: 14, color: theme.text }}>Note: {item.note}</Text>
 
       <Pressable
               onPress={() => onDelete(item.id)}
