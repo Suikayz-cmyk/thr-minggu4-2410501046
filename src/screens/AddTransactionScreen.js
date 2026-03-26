@@ -1,9 +1,12 @@
 import { useState, useContext } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { WalletContext, ACTIONS } from '../context/WalletContext';
 import { ThemeContext } from '../context/ThemeContext';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function AddTransactionScreen({ navigation }) {
 
@@ -19,6 +22,8 @@ export default function AddTransactionScreen({ navigation }) {
   const { dispatch } = useContext(WalletContext);
 
   const { theme } = useContext(ThemeContext);
+
+  const { toggleTheme, isDark } = useContext(ThemeContext);
 
   const handleDateChange = (event, selectedDate) => {
     setShowPicker(false);
@@ -53,99 +58,132 @@ export default function AddTransactionScreen({ navigation }) {
   };
 
   return (
-    <View style={{ flex: 1, padding: 10, backgroundColor: theme.background}}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', color: theme.text }}>Add Transaction</Text>
-
-      {/* Type */}
-      <View style={{ flexDirection: 'row', gap: 10, marginVertical: 10 }}>
-        {/* INCOME */}
-        <Pressable
-          onPress={() => setType('income')}
-          style={{
-            flex: 1,
-            padding: 12,
-            borderRadius: 8,
-            alignItems: 'center',
-            backgroundColor: type === 'income' ? '#4CAF50' : '#d4edda'
-          }}
-        >
-          <Text style={{ color: type === 'income' ? 'white' : 'black' }}>
-            Income
-          </Text>
-        </Pressable>
-
-        {/* EXPENSE */}
-        <Pressable
-          onPress={() => setType('expense')}
-          style={{
-            flex: 1,
-            padding: 12,
-            borderRadius: 8,
-            alignItems: 'center',
-            backgroundColor: type === 'expense' ? '#F44336' : '#f8d7da'
-          }}
-        >
-          <Text style={{ color: type === 'expense' ? 'white' : 'black' }}>
-            Expense
-          </Text>
-        </Pressable>
-      </View>
-      
-      <Pressable onPress={() => setShowPicker(true)}
-        style={{
-            padding: 12,            
-            borderRadius: 8,
-            backgroundColor: '#ddd',
-            borderWidth: 1,
-            borderColor: '#ccc',}}>
-        <Text>
-          Date: {date.toLocaleDateString('id-ID')}
-        </Text>
-      </Pressable>
-
-      {showPicker && (
-        <DateTimePicker
-          value={date}
-          mode="date"
-          display="default"
-          onChange={handleDateChange}
-        />
-      )}
-
-      {/* AMOUNT */}
-      <TextInput
-        style={{ borderWidth: 1, padding: 10, marginVertical: 8, borderRadius: 6 }}
-
-        placeholder="Amount"
-        value={amount}
-        onChangeText={setAmount}
-        keyboardType="numeric"
-      />
-
-      {/* NOTE */}
-      <TextInput
-        style={{ borderWidth: 1, padding: 10, marginVertical: 8, borderRadius: 6 }}
-        
-        placeholder="Note (e.g. Ayah / Belanja)"
-        value={note}
-        onChangeText={setNote}
-      />
-
-      <Pressable
-        onPress={handleAdd}
-        style={({ pressed }) => ({
-          backgroundColor: pressed ? '#2563EB' : '#3B82F6',
-          padding: 12,
-          borderRadius: 8,
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: theme.background
+      }}
+    >
+    <View style={{ flex: 1, padding: 16 }}>
+       <View style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
           alignItems: 'center',
-          marginTop: 10
-        })}
-      >
-        <Text style={{ color: theme.text, fontWeight: 'bold' }}>
-          Add
-        </Text>
-      </Pressable>
-  
-    </View>
+          marginBottom: 10
+        }}>
+          <Text style={{
+            fontSize: 22,
+            fontWeight: 'bold',
+            color: theme.text
+          }}>
+            Add Transaction
+          </Text>
+
+          <Pressable  
+            onPress={toggleTheme}
+            style={({ pressed }) => ({
+              opacity: pressed ? 0.5 : 1
+            })}
+          >
+            <Ionicons
+              name={isDark ? 'sunny' : 'moon'}
+              size={24}
+              color={theme.text}
+            />
+          </Pressable>
+        </View>
+
+        {/* Type */}
+        <View style={{ flexDirection: 'row', gap: 10, marginVertical: 10 }}>
+          {/* INCOME */}
+          <Pressable
+            onPress={() => setType('income')}
+            style={{
+              flex: 1,
+              padding: 12,
+              borderRadius: 8,
+              alignItems: 'center',
+              backgroundColor: type === 'income' ? '#4CAF50' : '#d4edda'
+            }}
+          >
+            <Text style={{ color: type === 'income' ? 'white' : 'black' }}>
+              Income
+            </Text>
+          </Pressable>
+
+          {/* EXPENSE */}
+          <Pressable
+            onPress={() => setType('expense')}
+            style={{
+              flex: 1,
+              padding: 12,
+              borderRadius: 8,
+              alignItems: 'center',
+              backgroundColor: type === 'expense' ? '#F44336' : '#f8d7da'
+            }}
+          >
+            <Text style={{ color: type === 'expense' ? 'white' : 'black' }}>
+              Expense
+            </Text>
+          </Pressable>
+        </View>
+        
+        <Pressable onPress={() => setShowPicker(true)}
+          style={{
+              padding: 12,            
+              borderRadius: 8,
+              backgroundColor: '#ddd',
+              borderWidth: 1,
+              borderColor: '#ccc',}}>
+          <Text>
+            Date: {date.toLocaleDateString('id-ID')}
+          </Text>
+        </Pressable>
+
+        {showPicker && (
+          <DateTimePicker
+            value={date}
+            mode="date"
+            display="default"
+            onChange={handleDateChange}
+          />
+        )}
+
+        {/* AMOUNT */}
+        <TextInput
+          style={{ borderWidth: 1, padding: 10, marginVertical: 8, borderRadius: 6 }}
+
+          placeholder="Amount"
+          value={amount}
+          onChangeText={setAmount}
+          keyboardType="numeric"
+        />
+
+        {/* NOTE */}
+        <TextInput
+          style={{ borderWidth: 1, padding: 10, marginVertical: 8, borderRadius: 6 }}
+          
+          placeholder="Note (e.g. Ayah / Belanja)"
+          value={note}
+          onChangeText={setNote}
+        />
+
+        <Pressable
+          onPress={handleAdd}
+          style={({ pressed }) => ({
+            backgroundColor: pressed ? '#2563EB' : '#3B82F6',
+            padding: 12,
+            borderRadius: 8,
+            alignItems: 'center',
+            marginTop: 10
+          })}
+        >
+          <Text style={{ color: theme.text, fontWeight: 'bold' }}>
+            Add
+          </Text>
+        </Pressable>
+    
+      </View>
+    </SafeAreaView>
   );
 }
