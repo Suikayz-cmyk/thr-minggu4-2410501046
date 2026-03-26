@@ -1,5 +1,6 @@
 import { View, Text, Pressable } from 'react-native';
 import { useState, useContext } from 'react';
+import { Ionicons } from '@expo/vector-icons';
 
 import { ThemeContext } from '../context/ThemeContext';
 
@@ -7,9 +8,11 @@ export default function TransactionItem({ item, onDelete }) {
 
   const { theme } = useContext(ThemeContext);
 
+  const backgroundColor = item.type === 'income' ? theme.incomeBg : theme.expenseBg
+
   return (
     <View style={{ 
-      backgroundColor: theme.card,
+      backgroundColor: backgroundColor,
       padding: 12,
       borderRadius: 10,
       marginVertical: 6,
@@ -25,7 +28,22 @@ export default function TransactionItem({ item, onDelete }) {
       })}
       </Text>
 
-      <Text style={{ fontWeight: 'bold',fontSize: 18,color: theme.text }}>{item.type.toUpperCase()}</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 4 }}>
+        <Ionicons
+          name={item.type === 'income' ? 'arrow-up-circle' : 'arrow-down-circle'}
+          size={18}
+          color={item.type === 'income' ? '#22C55E' : '#EF4444'}
+          style={{ marginRight: 6 }}
+        />
+
+        <Text style={{
+          fontWeight: 'bold',
+          fontSize: 18,
+          color: theme.text
+        }}>
+          {item.type.toUpperCase()}
+        </Text>
+      </View>
       
       <Text style={{ fontSize: 16, color: theme.text }}>Rp {item.amount}</Text>
       <Text style={{ fontSize: 14, color: theme.text }}>Note: {item.note}</Text>
@@ -33,7 +51,8 @@ export default function TransactionItem({ item, onDelete }) {
       <Pressable
               onPress={() => onDelete(item.id)}
               style={({ pressed }) => ({
-                backgroundColor: pressed ? '#B91C1C' : '#DC2626',
+                backgroundColor: pressed ? '#B91C1C' : '#EF4444',
+                opacity: pressed ? 0.8 : 1,
                 padding: 12,
                 borderRadius: 10,
                 alignItems: 'center',

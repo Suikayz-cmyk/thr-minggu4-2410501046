@@ -8,9 +8,13 @@ const lightTheme = {
   card: '#FFFFFF',
   border: '#E5E7EB',
   primary: '#3B82F6',
-  income: '#22C55E',
-  expense: '#EF4444'
-};
+
+  summaryBg: '#DBEAFE',
+  summaryText: '#1E40AF',
+ 
+  incomeBg: '#ECFDF5',
+  expenseBg: '#FEF2F2'
+};  
 
 const darkTheme = {
   background: '#111827',
@@ -18,8 +22,12 @@ const darkTheme = {
   card: '#1F2937',
   border: '#374151',
   primary: '#60A5FA',
-  income: '#4ADE80',
-  expense: '#F87171'
+
+  summaryBg: '#1E3A8A', 
+  summaryText: '#BFDBFE',
+  
+  incomeBg: '#064E3B', 
+  expenseBg: '#3F1D1D' 
 };
 
 export function ThemeProvider({ children }) {

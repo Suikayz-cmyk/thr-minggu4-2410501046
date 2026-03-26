@@ -46,13 +46,10 @@ export default function HomeScreen({ navigation }) {
           alignItems: 'center',
           marginBottom: 10
         }}>
-          <Text style={{
-            fontSize: 22,
-            fontWeight: 'bold',
-            color: theme.text
-          }}>
-            Transaction List
-          </Text>
+          <Text style={{ fontSize: 22, fontWeight: 'bold', color: theme.text }}>
+              Transaction List
+            </Text>
+         
 
           <Pressable  
             onPress={toggleTheme}
