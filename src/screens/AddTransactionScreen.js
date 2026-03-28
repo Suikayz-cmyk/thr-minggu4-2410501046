@@ -25,6 +25,17 @@ export default function AddTransactionScreen({ navigation }) {
 
   const { toggleTheme, isDark } = useContext(ThemeContext);
 
+  const [category, setCategory] = useState('Jajan');
+
+  const expenseCategories = [
+    'Jajan',
+    'Kebutuhan',
+    'Investasi',
+    'Lainnya'
+  ];
+
+  const isExpense = type === 'expense'
+
   const handleDateChange = (event, selectedDate) => {
     setShowPicker(false);
 
@@ -41,6 +52,7 @@ export default function AddTransactionScreen({ navigation }) {
       type,
       amount: Number(amount),
       note,
+      category: isExpense ? category : null,
       date: date.toISOString()
     };
 
@@ -179,6 +191,40 @@ export default function AddTransactionScreen({ navigation }) {
           keyboardType="numeric"
           
         />
+
+        {/* KATEGORY */}
+        {isExpense && (
+          <View style={{ marginVertical: 10 }}>
+            <Text style={{ color: theme.text, marginBottom: 6 }}>
+              Category
+            </Text>
+
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+              {expenseCategories.map((cat) => (
+                <Pressable
+                  key={cat}
+                  onPress={() => setCategory(cat)}
+                  style={{
+                    padding: 8,
+                    borderRadius: 8,
+                    backgroundColor:
+                      category === cat ? theme.primary : theme.card,
+                    borderWidth: 1,
+                    borderColor: theme.border
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: category === cat ? '#fff' : theme.text
+                    }}
+                  >
+                    {cat}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+        )}
 
         {/* NOTE */}
         <TextInput

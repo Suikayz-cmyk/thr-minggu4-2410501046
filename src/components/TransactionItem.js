@@ -46,10 +46,14 @@ export default function TransactionItem({ item, onDelete }) {
       </View>
       
       <Text style={{ fontSize: 16, color: theme.text }}>Rp {item.amount}</Text>
+
+      {item.type === 'expense' && item.category && (
+        <Text style={{ fontSize: 15, color: theme.text}}>Category: {item.category}</Text>
+      )}
       <Text style={{ fontSize: 14, color: theme.text }}>Note: {item.note}</Text>
 
       <View style={{ position: 'absolute', top: 10, right: 10 }}>
-        <Pressable onPress={() => onDelete(item.id)} style={{ borderWidth:1, borderRadius:5, borderColor: theme.text}}>
+        <Pressable onPress={() => onDelete(item.id)} style={{ borderWidth:1, borderRadius:5, borderColor: theme.text        }}>
                 <Ionicons name="trash" size={20} color="#EF4444" />             
           </Pressable>
         </View>
