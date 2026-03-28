@@ -106,14 +106,40 @@ export default function ChartScreen() {
           </Pressable>
         </View>
 
-        <View style={{ flexDirection: 'row', gap: 10, marginBottom: 10}}>
-          <Pressable onPress={() => setMode('overview')}>
-            <Text style={{ color: theme.text }}>Overview</Text>
-          </Pressable>
+        <View style={{
+          flexDirection: 'row',
+          backgroundColor: theme.card,
+          borderRadius: 10,
+          padding: 4,
+          marginBottom: 12,
+          borderWidth: 1,
+          borderColor: theme.border
+        }}>
+          {['overview', 'category'].map((item) => {
+            const isActive = mode === item;
 
-          <Pressable onPress={() => setMode('category')}>
-            <Text style={{ color: theme.text }}>Category</Text>
-          </Pressable>
+            return (
+              <Pressable
+                key={item}
+                onPress={() => setMode(item)}
+                style={({ pressed }) => ({
+                  flex: 1,
+                  paddingVertical: 8,
+                  borderRadius: 8,
+                  alignItems: 'center',
+                  backgroundColor: isActive ? theme.primary : 'transparent',
+                  opacity: pressed ? 0.5 : 1
+                })}
+              >
+                <Text style={{
+                  color: isActive ? '#fff' : theme.text,
+                  fontWeight: '500'
+                }}>
+                  {item === 'overview' ? 'Overview' : 'Category'}
+                </Text>
+              </Pressable>
+            );
+          })}
         </View>
 
         {isEmpty ? (
