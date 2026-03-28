@@ -69,6 +69,8 @@ export default function ChartScreen() {
   totalIncome === 0 &&
   totalExpense === 0 &&
   (!state?.transactions || state.transactions.length === 0);
+
+  const total = safeData.reduce((sum, item) => sum + item.amount, 0);
   
   return (
     <SafeAreaView
@@ -147,20 +149,48 @@ export default function ChartScreen() {
           <Text style={{ color: theme.text, textAlign: 'center', marginTop: 50 }}>
             No data yet. Add some transactions 
           </Text>
-          
+        
         ) : (
           <PieChart
             data={safeData}
-            width={screenWidth - 32}
+            width={screenWidth}
             height={220}
             accessor="amount"
             backgroundColor="transparent"
-            paddingLeft="15"
+
             chartConfig={{
               color: () => theme.text
             }}
           />
         )}
+
+        <View style={{ marginTop: 20 }}>
+          {safeData.map((item, index) => (
+            <View
+              key={index}
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginBottom: 6,
+                borderBottomWidth: 1,
+                borderBottomColor: theme.border,
+                paddingBottom: 6
+              }}
+            >
+              {/* kiri */}
+              <Text style={{ color: theme.text }}>
+                {item.name}
+              </Text>
+
+              {/* kanan */}
+              <Text style={{ color: theme.text, fontWeight: 'bold' }}>
+                Rp {item.amount}
+              </Text>
+            </View>
+          ))}
+        </View>
+      
+          
       </View>
     </SafeAreaView>
   );
