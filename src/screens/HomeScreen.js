@@ -38,11 +38,10 @@ export default function HomeScreen({ navigation }) {
     );
   };
   
-  const filteredTransactions = state.transactions.filter(t => {
-  if (filter === 'all') return true;
-  return t.type === filter;
-  });
-
+  const processedTransactions = [...state.transactions]
+    .filter(t => filter === 'all' || t.type === filter)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+    
   return (
     <SafeAreaView
       style={{
@@ -148,12 +147,11 @@ export default function HomeScreen({ navigation }) {
         </View>
 
         <FlatList
-          data={filteredTransactions}
+          data={processedTransactions}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <TransactionItem item={item} onDelete={handleDelete} />
           )}
-          ListEmptyComponent={<Text style={{ color: theme.text }}>No transactions yet</Text>}
         />
 
         
