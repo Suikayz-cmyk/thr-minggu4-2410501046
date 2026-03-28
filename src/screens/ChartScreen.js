@@ -6,6 +6,7 @@ import { WalletContext } from '../context/WalletContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import useWallet from '../hooks/useWallet';
 import { ThemeContext } from '../context/ThemeContext';
+import { formatRupiah } from '../utils/FormatRp';
 
 export default function ChartScreen() {
   const { totalIncome, totalExpense } = useWallet();
@@ -177,20 +178,16 @@ export default function ChartScreen() {
                 paddingBottom: 6
               }}
             >
-              {/* kiri */}
               <Text style={{ color: theme.text }}>
                 {item.name}
               </Text>
 
-              {/* kanan */}
               <Text style={{ color: theme.text, fontWeight: 'bold' }}>
-                Rp {item.amount}
+                {formatRupiah(item.amount)}
               </Text>
             </View>
           ))}
-        </View>
-      
-          
+        </View> 
       </View>
     </SafeAreaView>
   );

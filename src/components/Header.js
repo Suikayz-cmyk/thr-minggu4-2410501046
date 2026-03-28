@@ -3,6 +3,7 @@ import { useState, useContext } from 'react';
 import useWallet from '../hooks/useWallet';
 import { ThemeContext } from '../context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
+import { formatNumber, formatRupiah } from '../utils/FormatRp';
 
 export default function Header() {
   const { balance, totalIncome, totalExpense } = useWallet();
@@ -38,12 +39,10 @@ export default function Header() {
           </View>
         
       
-      <Text style={{ color: theme.summaryText , fontSize: 24, fontWeight: 'bold' }}>
-        Rp {balance}
-      </Text>
+      <Text style={{ color: theme.summaryText , fontSize: 24, fontWeight: 'bold' }}>{formatRupiah(balance)}</Text>
       
-      <Text style = {{color: theme.summaryText , fontSize: 16}}>Income: Rp {totalIncome}</Text>
-      <Text style = {{color: theme.summaryText , fontSize: 16}}>Expense: Rp {totalExpense}</Text>
+      <Text style = {{color: theme.summaryText , fontSize: 16}}>Income: {formatRupiah(totalIncome)}</Text>
+      <Text style = {{color: theme.summaryText , fontSize: 16}}>Expense: {formatRupiah(totalExpense)}</Text>
     </View>
   );
 }

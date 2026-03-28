@@ -3,6 +3,7 @@ import { useState, useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
 import { ThemeContext } from '../context/ThemeContext';
+import { formatRupiah } from '../utils/FormatRp';
 
 export default function TransactionItem({ item, onDelete }) {
 
@@ -45,7 +46,7 @@ export default function TransactionItem({ item, onDelete }) {
         </Text>
       </View>
       
-      <Text style={{ fontSize: 16, color: theme.text }}>Rp {item.amount}</Text>
+      <Text style={{ fontSize: 16, color: theme.text }}>{formatRupiah(item.amount)}</Text>
 
       {item.type === 'expense' && item.category && (
         <Text style={{ fontSize: 15, color: theme.text}}>Category: {item.category}</Text>

@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { WalletContext, ACTIONS } from '../context/WalletContext';
 import { ThemeContext } from '../context/ThemeContext';
+import { formatRupiah } from '../utils/FormatRp';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Ionicons } from '@expo/vector-icons';
@@ -26,6 +27,8 @@ export default function AddTransactionScreen({ navigation }) {
   const { toggleTheme, isDark } = useContext(ThemeContext);
 
   const [category, setCategory] = useState('Jajan');
+
+  const [isFocused, setIsFocused] = useState(false);
 
   const expenseCategories = [
     'Jajan',
@@ -68,6 +71,11 @@ export default function AddTransactionScreen({ navigation }) {
 
     navigation.goBack();
   };
+
+  const handleAmountChange = (text) => {
+      const numeric = text.replace(/[^0-9]/g, '');
+      setAmount(numeric);
+    };
 
   return (
     <SafeAreaView
@@ -186,8 +194,16 @@ export default function AddTransactionScreen({ navigation }) {
           placeholder="Amount"
           placeholderTextColor={theme.inputPlaceholder}
 
-          value={amount}
-          onChangeText={setAmount}
+          value={
+            amount
+              ? isFocused
+                ? amount
+                : formatRupiah(amount)
+              : ''
+          }
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          onChangeText={handleAmountChange}
           keyboardType="numeric"
           
         />
