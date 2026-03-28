@@ -1,24 +1,23 @@
 import { useState, useContext } from 'react';
 import { View, Text, FlatList, Pressable, Alert } from 'react-native';
+
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context'; 
 
 import { WalletContext, ACTIONS } from '../context/WalletContext';
 import { ThemeContext } from '../context/ThemeContext';
-
 import TransactionItem from '../components/TransactionItem';
 import Header from '../components/Header';
 
 export default function HomeScreen({ navigation }) {
   const { state, dispatch } = useContext(WalletContext);
+  const { theme, toggleTheme, isDark } = useContext(ThemeContext);
 
-  const [type, setType] = useState('income'); 
+  const [filter, setFilter] = useState('all');
 
-  const { toggleTheme, isDark } = useContext(ThemeContext);
-
-  const { theme } = useContext(ThemeContext);
-
-  const [filter, setFilter] = useState('all'); 
+  const processedTransactions = [...state.transactions]
+   .filter(t => filter === 'all' || t.type === filter)
+   .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   const handleDelete = (id) => {
     Alert.alert(
@@ -38,10 +37,6 @@ export default function HomeScreen({ navigation }) {
     );
   };
   
-  const processedTransactions = [...state.transactions]
-    .filter(t => filter === 'all' || t.type === filter)
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
-    
   return (
     <SafeAreaView
       style={{
@@ -59,7 +54,6 @@ export default function HomeScreen({ navigation }) {
           <Text style={{ fontSize: 22, fontWeight: 'bold', color: theme.text }}>
               Transaction List
             </Text>
-         
 
           <Pressable  
             onPress={toggleTheme}
@@ -143,9 +137,9 @@ export default function HomeScreen({ navigation }) {
               Expense
             </Text>
           </Pressable>
-
         </View>
 
+        {/* List */}
         <FlatList
           data={processedTransactions}
           keyExtractor={(item) => item.id}
@@ -153,8 +147,6 @@ export default function HomeScreen({ navigation }) {
             <TransactionItem item={item} onDelete={handleDelete} />
           )}
         />
-
-        
       </View>
     </SafeAreaView>
   );

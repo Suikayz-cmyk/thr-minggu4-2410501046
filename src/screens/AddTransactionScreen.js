@@ -1,35 +1,30 @@
 import { useState, useContext } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
+
 import { SafeAreaView } from 'react-native-safe-area-context';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { Ionicons } from '@expo/vector-icons';
 
 import { WalletContext, ACTIONS } from '../context/WalletContext';
 import { ThemeContext } from '../context/ThemeContext';
 import { formatRupiah } from '../utils/FormatRp';
 
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { Ionicons } from '@expo/vector-icons';
-
 export default function AddTransactionScreen({ navigation }) {
+  // Context
+  const { dispatch } = useContext(WalletContext);
+  const { theme, toggleTheme, isDark } = useContext(ThemeContext);
 
-  //Local State
+  //State
   const [type, setType] = useState('income'); // 'income' atau 'expense'
   const [amount, setAmount] = useState('');
   const [note, setNote] = useState('');
+  const [category, setCategory] = useState('Jajan');
 
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
-
-  //Global State
-  const { dispatch } = useContext(WalletContext);
-
-  const { theme } = useContext(ThemeContext);
-
-  const { toggleTheme, isDark } = useContext(ThemeContext);
-
-  const [category, setCategory] = useState('Jajan');
-
   const [isFocused, setIsFocused] = useState(false);
 
+  const isExpense = type === 'expense'
   const expenseCategories = [
     'Jajan',
     'Kebutuhan',
@@ -37,11 +32,14 @@ export default function AddTransactionScreen({ navigation }) {
     'Lainnya'
   ];
 
-  const isExpense = type === 'expense'
+  //Handlers
+  const handleAmountChange = (text) => {
+    const numeric = text.replace(/[^0-9]/g, '');
+    setAmount(numeric);
+  };
 
   const handleDateChange = (event, selectedDate) => {
     setShowPicker(false);
-
     if (event.type === 'set'){
       setDate(selectedDate);
     }
@@ -59,23 +57,18 @@ export default function AddTransactionScreen({ navigation }) {
       date: date.toISOString()
     };
 
-    if (type === 'income') {
-      dispatch({ type: ACTIONS.ADD_INCOME, payload: newTransaction });
-    } else {
-      dispatch({ type: ACTIONS.ADD_EXPENSE, payload: newTransaction });
-    }
+    dispatch({
+      type: type === 'income'
+        ? ACTIONS.ADD_INCOME
+        : ACTIONS.ADD_EXPENSE,
+      payload: newTransaction
+    });
     
     // Reset form
     setAmount('');
     setNote('');
-
     navigation.goBack();
   };
-
-  const handleAmountChange = (text) => {
-      const numeric = text.replace(/[^0-9]/g, '');
-      setAmount(numeric);
-    };
 
   return (
     <SafeAreaView
@@ -191,7 +184,7 @@ export default function AddTransactionScreen({ navigation }) {
             color: theme.text
           }}
 
-          placeholder="Amount"
+          placeholder="Enter amount"
           placeholderTextColor={theme.inputPlaceholder}
 
           value={
@@ -263,12 +256,14 @@ export default function AddTransactionScreen({ navigation }) {
 
         <Pressable
           onPress={handleAdd}
-          style={({ pressed }) => ({
+           style={({ pressed }) => ({
             backgroundColor: pressed ? theme.primary : theme.primary,
+            opacity: pressed ? 0.8 : 1,
             padding: 12,
             borderRadius: 8,
             alignItems: 'center',
-            marginTop: 10
+            marginTop: 10,
+            marginBottom: 10
           })}
         >
           <Text style={{ color: theme.text, fontWeight: 'bold' }}>

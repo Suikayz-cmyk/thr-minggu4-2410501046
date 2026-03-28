@@ -1,23 +1,23 @@
-import { View, Text, Dimensions, Pressable } from 'react-native';
-import { PieChart } from 'react-native-chart-kit';
 import { useState, useContext } from 'react';
+import { View, Text, Dimensions, Pressable } from 'react-native';
+
+import { PieChart } from 'react-native-chart-kit';
 import { Ionicons } from '@expo/vector-icons';
-import { WalletContext } from '../context/WalletContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import useWallet from '../hooks/useWallet';
+
+import { WalletContext } from '../context/WalletContext';
 import { ThemeContext } from '../context/ThemeContext';
+import useWallet from '../hooks/useWallet';
 import { formatRupiah } from '../utils/FormatRp';
 
 export default function ChartScreen() {
-  const { totalIncome, totalExpense } = useWallet();
-
   const { state } = useContext(WalletContext);
+  const { theme , toggleTheme, isDark  } = useContext(ThemeContext); 
 
-  const { theme } = useContext(ThemeContext); 
-  const screenWidth = Dimensions.get('window').width;
-  const { toggleTheme, isDark } = useContext(ThemeContext);
-
+  const { totalIncome, totalExpense } = useWallet();
   const [mode, setMode] = useState('overview')
+  
+  const screenWidth = Dimensions.get('window').width;
 
   const overviewData = [
     {
@@ -54,22 +54,22 @@ export default function ChartScreen() {
     legendFontSize: 12
   }));
 
-  const data = mode === 'overview' ? overviewData : categoryData;
+  const rawData = mode === 'overview' ? overviewData : categoryData;
 
-  const safeData = data.length > 0 ? data : [
-    {
-      name: 'No Data',
-      amount: 1,
-      color: '#9CA3AF',
-      legendFontColor: theme.text,
-      legendFontSize: 12
-    }
-  ];
+  const safeData = rawData.length > 0
+    ? rawData
+    : [{
+        name: 'No Data',
+        amount: 1,
+        color: '#9CA3AF',
+        legendFontColor: theme.text,
+        legendFontSize: 12
+      }];
 
   const isEmpty =
-  totalIncome === 0 &&
-  totalExpense === 0 &&
-  (!state?.transactions || state.transactions.length === 0);
+    totalIncome === 0 &&
+    totalExpense === 0 &&
+    state.transactions.length === 0;
 
   const total = safeData.reduce((sum, item) => sum + item.amount, 0);
   
@@ -164,6 +164,14 @@ export default function ChartScreen() {
             }}
           />
         )}
+
+        <Text style={{
+          color: theme.text,
+          fontWeight: 'bold',
+          marginBottom: 10
+        }}>
+          Total: {formatRupiah(total)}
+        </Text>
 
         <View style={{ marginTop: 20 }}>
           {safeData.map((item, index) => (
