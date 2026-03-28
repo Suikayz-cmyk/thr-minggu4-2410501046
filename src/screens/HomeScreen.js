@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { View, Text, FlatList, Pressable } from 'react-native';
+import { View, Text, FlatList, Pressable, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context'; 
 
@@ -21,12 +21,23 @@ export default function HomeScreen({ navigation }) {
   const [filter, setFilter] = useState('all'); 
 
   const handleDelete = (id) => {
-    dispatch({
-      type: ACTIONS.DELETE_TRANSACTION,
-      payload: id
-    });
+    Alert.alert(
+      'Delete Transaction',
+      'Are you sure?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Delete', style: 'destructive', 
+          onPress: () => {
+            dispatch({
+              type: ACTIONS.DELETE_TRANSACTION,
+              payload: id
+            });
+          }
+        }
+      ]
+    );
   };
-
+  
   const filteredTransactions = state.transactions.filter(t => {
   if (filter === 'all') return true;
   return t.type === filter;

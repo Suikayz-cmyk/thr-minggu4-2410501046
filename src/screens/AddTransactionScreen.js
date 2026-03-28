@@ -130,14 +130,24 @@ export default function AddTransactionScreen({ navigation }) {
         
         <Pressable onPress={() => setShowPicker(true)}
           style={{
-              padding: 12,            
-              borderRadius: 8,
-              backgroundColor: '#ddd',
+              flexDirection: 'row',
+              alignItems: 'center',
+              padding: 12,
               borderWidth: 1,
-              borderColor: '#ccc',}}>
-          <Text>
-            Date: {date.toLocaleDateString('id-ID')}
-          </Text>
+              borderRadius: 8,
+              backgroundColor: theme.card,
+              borderColor: theme.border
+          }}
+        >
+          <Ionicons
+            name="calendar"
+            size={18}
+            color={theme.text}
+            style={{ marginRight: 8 }}
+          />
+           <Text style={{ color: theme.text }}>
+            {date.toLocaleDateString('id-ID')}
+           </Text>
         </Pressable>
 
         {showPicker && (
@@ -151,19 +161,40 @@ export default function AddTransactionScreen({ navigation }) {
 
         {/* AMOUNT */}
         <TextInput
-          style={{ borderWidth: 1, padding: 10, marginVertical: 8, borderRadius: 6 }}
+          style={{ 
+            borderWidth: 1, 
+            padding: 10, 
+            marginVertical: 8, 
+            borderRadius: 6,
+            backgroundColor: theme.card,
+            borderColor: theme.border,
+            color: theme.text
+          }}
 
           placeholder="Amount"
+          placeholderTextColor={theme.inputPlaceholder}
+
           value={amount}
           onChangeText={setAmount}
           keyboardType="numeric"
+          
         />
 
         {/* NOTE */}
         <TextInput
-          style={{ borderWidth: 1, padding: 10, marginVertical: 8, borderRadius: 6 }}
+          style={{ 
+            borderWidth: 1, 
+            padding: 10, 
+            marginVertical: 8, 
+            borderRadius: 6,
+            backgroundColor: theme.card,
+            borderColor: theme.border,
+            color: theme.text
+          }}
           
           placeholder="Note (e.g. Ayah / Belanja)"
+          placeholderTextColor={theme.inputPlaceholder}
+
           value={note}
           onChangeText={setNote}
         />
@@ -171,7 +202,7 @@ export default function AddTransactionScreen({ navigation }) {
         <Pressable
           onPress={handleAdd}
           style={({ pressed }) => ({
-            backgroundColor: pressed ? '#2563EB' : '#3B82F6',
+            backgroundColor: pressed ? theme.primary : theme.primary,
             padding: 12,
             borderRadius: 8,
             alignItems: 'center',

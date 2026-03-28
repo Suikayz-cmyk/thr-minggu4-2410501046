@@ -13,7 +13,9 @@ const lightTheme = {
   summaryText: '#1E40AF',
  
   incomeBg: '#ECFDF5',
-  expenseBg: '#FEF2F2'
+  expenseBg: '#FEF2F2',
+
+  inputPlaceholder: '#6B7280'
 };  
 
 const darkTheme = {
@@ -27,7 +29,9 @@ const darkTheme = {
   summaryText: '#BFDBFE',
   
   incomeBg: '#064E3B', 
-  expenseBg: '#3F1D1D' 
+  expenseBg: '#3F1D1D',
+
+  inputPlaceholder: '#9CA3AF'
 };
 
 export function ThemeProvider({ children }) {

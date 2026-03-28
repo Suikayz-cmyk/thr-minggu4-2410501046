@@ -20,7 +20,7 @@ export default function TransactionItem({ item, onDelete }) {
       borderColor: theme.border
     }}>
       
-      <Text style={{ fontSize: 14, color: theme.text, textAlign: 'right' }}>
+      <Text style={{ fontSize: 14, color: theme.text, textAlign: 'left', marginBottom: 5 }}>
        {new Date(item.date).toLocaleDateString('id-ID', {
         day: 'numeric',
         month: 'short',
@@ -48,23 +48,11 @@ export default function TransactionItem({ item, onDelete }) {
       <Text style={{ fontSize: 16, color: theme.text }}>Rp {item.amount}</Text>
       <Text style={{ fontSize: 14, color: theme.text }}>Note: {item.note}</Text>
 
-      <Pressable
-              onPress={() => onDelete(item.id)}
-              style={({ pressed }) => ({
-                backgroundColor: pressed ? '#B91C1C' : '#EF4444',
-                opacity: pressed ? 0.8 : 1,
-                padding: 12,
-                borderRadius: 10,
-                alignItems: 'center',
-                marginTop: 10,
-                borderColor: '#000000',
-                borderWidth: 1
-              })}
-            >
-              <Text style={{ color: 'white', fontWeight: 'bold' }}>
-                Delete
-              </Text>
-        </Pressable>
+      <View style={{ position: 'absolute', top: 10, right: 10 }}>
+        <Pressable onPress={() => onDelete(item.id)} style={{ borderWidth:1, borderRadius:5, borderColor: theme.text}}>
+                <Ionicons name="trash" size={20} color="#EF4444" />             
+          </Pressable>
+        </View>
     </View>
   );
 }
