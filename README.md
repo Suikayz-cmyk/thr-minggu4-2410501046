@@ -45,19 +45,21 @@ Aplikasi ini juga menampilkan ringkasan keuangan seperti total saldo, pemasukan,
 
 Berikut tampilan aplikasi:
 
-Home Screen Light & Dark mode
-![Home](assets/screenshot/Home1.jpeg)
-![Home](assets/screenshot/Home2.jpeg)
+### Home Screen Light & Dark mode
 
-Add Transaction Light & Dark mode
-![Add](assets/screenshot/Add1.jpeg)
-![Add](assets/screenshot/Add2.jpeg)
+<img src="assets/screenshoot/Home1.jpeg" width="250"/>
+<img src="assets/screenshoot/Home2.jpeg" width="250"/>
 
-Chart Screen Light & Dark mode
-![Chart](assets/screenshot/Chart1.jpeg)
-![Chart](assets/screenshot/Chart2.jpeg)
+### Add Transaction Light & Dark mode
+
+<img src="assets/screenshoot/Add1.jpeg" width="250"/>
+<img src="assets/screenshoot/Add2.jpeg" width="250"/>
+
+### Chart Screen Light & Dark mode
+
+<img src="assets/screenshoot/Chart1.jpeg" width="250"/>
+<img src="assets/screenshoot/Chart2.jpeg" width="250"/>
 
 ## Cara Menjalankan
 
-npm install
-npx expo start
+npm install && npx expo start
