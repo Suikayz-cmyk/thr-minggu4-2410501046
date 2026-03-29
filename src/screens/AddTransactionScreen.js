@@ -141,6 +141,11 @@ export default function AddTransactionScreen({ navigation }) {
           </Pressable>
         </View>
         
+        {/* DATE */}
+        <View style={{ marginVertical: 10 }}>
+            <Text style={{ color: theme.text, marginBottom: 6 }}>
+              Date
+            </Text>
         <Pressable onPress={() => setShowPicker(true)}
           style={{
               flexDirection: 'row',
@@ -171,13 +176,17 @@ export default function AddTransactionScreen({ navigation }) {
             onChange={handleDateChange}
           />
         )}
+        </View>
 
         {/* AMOUNT */}
+        <View style={{ marginVertical: 10 }}>
+            <Text style={{ color: theme.text, marginBottom: 6 }}>
+              Amount
+            </Text>
         <TextInput
           style={{ 
             borderWidth: 1, 
             padding: 10, 
-            marginVertical: 8, 
             borderRadius: 6,
             backgroundColor: theme.card,
             borderColor: theme.border,
@@ -198,10 +207,10 @@ export default function AddTransactionScreen({ navigation }) {
           onBlur={() => setIsFocused(false)}
           onChangeText={handleAmountChange}
           keyboardType="numeric"
-          
         />
+        </View>
 
-        {/* KATEGORY */}
+        {/* CATEGORY */}
         {isExpense && (
           <View style={{ marginVertical: 10 }}>
             <Text style={{ color: theme.text, marginBottom: 6 }}>
@@ -222,11 +231,7 @@ export default function AddTransactionScreen({ navigation }) {
                     borderColor: theme.border
                   }}
                 >
-                  <Text
-                    style={{
-                      color: category === cat ? '#fff' : theme.text
-                    }}
-                  >
+                  <Text style={{ color: category === cat ? '#fff' : theme.text }}>
                     {cat}
                   </Text>
                 </Pressable>
@@ -236,24 +241,29 @@ export default function AddTransactionScreen({ navigation }) {
         )}
 
         {/* NOTE */}
+        <View style={{ marginVertical: 10 }}>
+            <Text style={{ color: theme.text, marginBottom: 6 }}>
+              Note
+            </Text>
         <TextInput
           style={{ 
             borderWidth: 1, 
             padding: 10, 
-            marginVertical: 8, 
             borderRadius: 6,
             backgroundColor: theme.card,
             borderColor: theme.border,
             color: theme.text
           }}
           
-          placeholder="Note (e.g. Ayah / Belanja)"
+          placeholder="Add a note (optional)"
           placeholderTextColor={theme.inputPlaceholder}
 
           value={note}
           onChangeText={setNote}
         />
+        </View>
 
+        {/* ADD BUTTON */}
         <Pressable
           onPress={handleAdd}
            style={({ pressed }) => ({
@@ -266,7 +276,7 @@ export default function AddTransactionScreen({ navigation }) {
             marginBottom: 10
           })}
         >
-          <Text style={{ color: theme.text, fontWeight: 'bold' }}>
+          <Text style={{ color: '#fff', fontWeight: 'bold' }}>
             Add
           </Text>
         </Pressable>
