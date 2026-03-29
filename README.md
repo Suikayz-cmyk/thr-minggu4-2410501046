@@ -46,16 +46,16 @@ Aplikasi ini juga menampilkan ringkasan keuangan seperti total saldo, pemasukan,
 Berikut tampilan aplikasi:
 
 Home Screen Light & Dark mode
-![Home](assets/screenshots/Home1.jpeg)
-![Home](assets/screenshots/Home2.jpeg)
+![Home](assets/screenshot/Home1.jpeg)
+![Home](assets/screenshot/Home2.jpeg)
 
 Add Transaction Light & Dark mode
-![Add](assets/screenshots/Add1.jpeg)
-![Add](assets/screenshots/Add2.jpeg)
+![Add](assets/screenshot/Add1.jpeg)
+![Add](assets/screenshot/Add2.jpeg)
 
 Chart Screen Light & Dark mode
-![Chart](assets/screenshots/Chart1.jpeg)
-![Chart](assets/screenshots/Chart2.jpeg)
+![Chart](assets/screenshot/Chart1.jpeg)
+![Chart](assets/screenshot/Chart2.jpeg)
 
 ## Cara Menjalankan
 
